@@ -18,6 +18,14 @@ var gameOn;
 const FRAMES_PER_SECOND = 30;
 var interval;
 
+var brick = {
+  height: 10,
+  width: 10,
+  x: Math.floor(Math.random() * Math.floor(canvas.width)),
+  y: Math.floor(Math.random() * Math.floor(canvas.width)),
+  touched: null
+}
+
 
 window.onload = function()  {
   canvas = document.getElementById('gameCanvas');
@@ -28,7 +36,7 @@ window.onload = function()  {
 function game() {
   console.log("Game On!");
   set();
-  interval = setInterval(start(), 1000/FRAMES_PER_SECOND);
+  interval = setInterval(start, 1000/FRAMES_PER_SECOND);
 }
 
 function start() {
@@ -65,6 +73,7 @@ function drawEverything() {
   colorRect(paddleX,paddleOneYTop, 10, PADDLE_HEIGHT, 'white');            //Drawing paddle
   colorBall(ballX, ballY, 5, 'white');      //Drawing ball
   hPText(235, 30);
+  colorRect(brick.x, brick.y, brick.width, brick.height, 'white');
 }
 
 function colorRect(leftX, topY, width, height, drawColor) {
@@ -126,9 +135,11 @@ function set() {
   ballY = 145
   ballSpeedY = Math.floor((Math.random() * 10) + 7);
   paddleOneY = 125;
-  hP = 5;
+  hP = 1;
   var framesPerSecond = 30;
   gameOn = true;
+  brick.x = Math.floor(Math.random() * Math.floor(canvas.width));
+  brick.y = Math.floor(Math.random() * Math.floor(canvas.height));
 }
 
 function gameOver() {
@@ -152,4 +163,5 @@ function gameOver() {
       }
     );
   }
+
 }
