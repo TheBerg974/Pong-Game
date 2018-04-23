@@ -7,24 +7,24 @@ var ballY;
 var ballSpeedY;
 
 var paddleOneY;
-const PADDLE_HEIGHT = 75;
+PADDLE_HEIGHT = 75;
 var paddleOneYTop;
 var paddleOneYBottom;
-const paddleX = 15;
+PADDLE_X = 15;
 
 var hP;
 var gameOn;
 
-const FRAMES_PER_SECOND = 30;
+FRAMES_PER_SECOND = 30;
 var interval;
 
-var brick = {
+/*var brick = {
   height: 10,
   width: 10,
   x: Math.floor(Math.random() * Math.floor(canvas.width)),
   y: Math.floor(Math.random() * Math.floor(canvas.width)),
   touched: null
-}
+}*/
 
 
 window.onload = function()  {
@@ -70,10 +70,10 @@ function moveEverything() {
 
 function drawEverything() {
   colorRect(0,0, canvas.width, canvas.height, 'black');                             //Drawing canvas
-  colorRect(paddleX,paddleOneYTop, 10, PADDLE_HEIGHT, 'white');            //Drawing paddle
+  colorRect(PADDLE_X,paddleOneYTop, 10, PADDLE_HEIGHT, 'white');            //Drawing paddle
   colorBall(ballX, ballY, 5, 'white');      //Drawing ball
   hPText(235, 30);
-  colorRect(brick.x, brick.y, brick.width, brick.height, 'white');
+  //colorRect(brick.x, brick.y, brick.width, brick.height, 'white');
 }
 
 function colorRect(leftX, topY, width, height, drawColor) {
@@ -138,8 +138,8 @@ function set() {
   hP = 1;
   var framesPerSecond = 30;
   gameOn = true;
-  brick.x = Math.floor(Math.random() * Math.floor(canvas.width));
-  brick.y = Math.floor(Math.random() * Math.floor(canvas.height));
+  //brick.x = Math.floor(Math.random() * Math.floor(canvas.width));
+  //brick.y = Math.floor(Math.random() * Math.floor(canvas.height));
 }
 
 function gameOver() {
