@@ -7,31 +7,26 @@ var ballY;
 var ballSpeedY;
 
 var paddleOneY;
-PADDLE_HEIGHT = 75;
+const PADDLE_HEIGHT = 75;
 var paddleOneYTop;
 var paddleOneYBottom;
-PADDLE_X = 15;
+const PADDLE_X = 15;
 
 var hP;
 var gameOn;
 
-FRAMES_PER_SECOND = 30;
+const FRAMES_PER_SECOND = 30;
 var interval;
 
-/*var brick = {
-  height: 10,
-  width: 10,
-  x: Math.floor(Math.random() * Math.floor(canvas.width)),
-  y: Math.floor(Math.random() * Math.floor(canvas.width)),
-  touched: null
-}*/
 
 
 window.onload = function()  {
   canvas = document.getElementById('gameCanvas');
   canvasContext = canvas.getContext('2d');
   game();
+
 }
+
 
 function game() {
   console.log("Game On!");
@@ -66,14 +61,14 @@ function moveEverything() {
   } else if (ballY < 5 || ballY > canvas.height - 10) {
     ballSpeedY = -ballSpeedY;
   }
+
 }
 
 function drawEverything() {
-  colorRect(0,0, canvas.width, canvas.height, 'black');                             //Drawing canvas
-  colorRect(PADDLE_X,paddleOneYTop, 10, PADDLE_HEIGHT, 'white');            //Drawing paddle
+  colorRect(0,0, canvas.width, canvas.height, 'black');    //Drawing canvas
+  colorRect(PADDLE_X,paddleOneYTop, 10, PADDLE_HEIGHT, 'white');  //Drawing paddle
   colorBall(ballX, ballY, 5, 'white');      //Drawing ball
   hPText(235, 30);
-  //colorRect(brick.x, brick.y, brick.width, brick.height, 'white');
 }
 
 function colorRect(leftX, topY, width, height, drawColor) {
@@ -118,9 +113,9 @@ function calculateMousePosition(evt) {
 
 function reset() {
   if(ballX < 5) {
-    ballX = 145;
-    ballSpeedX = 6;
-    ballY = 145
+    ballX = 100;
+    ballSpeedX = 5;
+    ballY = 100;
     ballSpeedY = Math.floor((Math.random() * 10) + 7);
     paddleOneY = 125;
     hP--;
@@ -131,15 +126,13 @@ function reset() {
 
 function set() {
   ballX = 145;
-  ballSpeedX = 6;
+  ballSpeedX = 5 ;
   ballY = 145
   ballSpeedY = Math.floor((Math.random() * 10) + 7);
   paddleOneY = 125;
   hP = 1;
-  var framesPerSecond = 30;
   gameOn = true;
-  //brick.x = Math.floor(Math.random() * Math.floor(canvas.width));
-  //brick.y = Math.floor(Math.random() * Math.floor(canvas.height));
+
 }
 
 function gameOver() {
