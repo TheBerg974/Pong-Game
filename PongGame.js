@@ -7,12 +7,21 @@ var ballY;
 var ballSpeedY;
 
 var paddleOneY;
-const PADDLE_HEIGHT = 75;
 var paddleOneYTop;
 var paddleOneYBottom;
-const PADDLE_X = 15;
+const PADDLEONE_X = 15;
 
-var hP;
+var paddleTwoY;
+var paddleTwoYTop;
+var paddleTwoYCenter;
+var paddleTwoYBottom;
+const PADDLETWO_X = 275
+
+const PADDLE_HEIGHT = 75;
+
+var scoreLeft;
+var scoreRight;
+
 var gameOn;
 
 const FRAMES_PER_SECOND = 30;
@@ -52,7 +61,14 @@ function moveEverything() {
 
   ballX = ballX + ballSpeedX;
   ballY = ballY + ballSpeedY;
+  paddleTwoYCenter = ballY;
+  paddleTwoYTop = paddleTwoYCenter - (PADDLE_HEIGHT/2);
+  paddleTwoYBottom = paddleTwoYCenter + (PADDLE_HEIGHT/2);
+
   if (ballY > paddleOneYTop && ballY < paddleOneYBottom && ballX <= 25 && ballX >= 20) {
+    ballSpeedX = -ballSpeedX;
+    console.log("Pad touched");
+  } else if (ballY > paddleTwoYTop && ballY < paddleTwoYBottom && ballX >=275 && ballX <= 285) {
     ballSpeedX = -ballSpeedX;
     console.log("Pad touched");
   }
@@ -66,9 +82,11 @@ function moveEverything() {
 
 function drawEverything() {
   colorRect(0,0, canvas.width, canvas.height, 'black');    //Drawing canvas
-  colorRect(PADDLE_X,paddleOneYTop, 10, PADDLE_HEIGHT, 'white');  //Drawing paddle
+  colorRect(PADDLEONE_X,paddleOneYTop, 10, PADDLE_HEIGHT, 'white');  //Drawing paddle 1
+  colorRect(PADDLETWO_X,paddleTwoYTop, 10, PADDLE_HEIGHT, 'white');  //Drawing paddle 2
   colorBall(ballX, ballY, 5, 'white');      //Drawing ball
-  hPText(235, 30);
+  Text(235, 30, scoreRight);
+  Text(25, 30, scoreLeft);
 }
 
 function colorRect(leftX, topY, width, height, drawColor) {
@@ -83,9 +101,9 @@ function colorBall(leftX, topY, radius, drawColor) {
   canvasContext.fill();
 }
 
-function hPText(x, y) {
-  canvasContext.font = "30px Impact";
-  canvasContext.fillText("HP: " + hP, x, y);
+function Text(x, y, score) {
+  canvasContext.font = "14px Impact";
+  canvasContext.fillText("Score: " + score, x, y);
 }
 
 function gameOverText(x, y) {
@@ -118,9 +136,16 @@ function reset() {
     ballY = 100;
     ballSpeedY = Math.floor((Math.random() * 10) + 7);
     paddleOneY = 125;
-    hP--;
-    console.log(hP);
-    console.log("Reset")
+    scoreRight++;
+    console.log("Reset");
+  } else if (ballX > canvas.width -5) {
+    ballX = 100;
+    ballSpeedX = -5;
+    ballY = 100;
+    ballSpeedY = Math.floor((Math.random() * 10) + 7);
+    paddleOneY = 125;
+    scoreLeft++;
+    console.log("Reset");
   }
 }
 
@@ -130,13 +155,16 @@ function set() {
   ballY = 145
   ballSpeedY = Math.floor((Math.random() * 10) + 7);
   paddleOneY = 125;
-  hP = 1;
   gameOn = true;
-
+  scoreLeft = 0;
+  scoreRight = 0;
+  paddleTwoYCenter = ballY;
+  paddleTwoYTop = paddleTwoYCenter - (PADDLE_HEIGHT/2);
+  paddleTwoYBottom = paddleTwoYCenter + (PADDLE_HEIGHT/2);
 }
 
 function gameOver() {
-  if (hP==0) {
+  if (scoreLeft == 5 || scoreRight == 5) {
     ballSpeedX = 0;
     ballSpeedY = 0;
     colorRect(0,0, canvas.width, canvas.height, 'black');
@@ -156,5 +184,4 @@ function gameOver() {
       }
     );
   }
-
 }
